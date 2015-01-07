@@ -3,7 +3,7 @@ title: Kevin's Blog
 header-img: img/home-bg.jpg
 email: zhao182y@sina.com
 description: "Tech Blog"
-baseurl: "/startbootstrap-clean-blog-jekyll"
+baseurl:
 #url: "http://yourdomain.com"
 #twitter_username: SBootstrap
 github_username:  kevin--zhao
