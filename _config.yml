@@ -1,0 +1,17 @@
+# Site settings
+title: Kevin's Blog
+header-img: img/home-bg.jpg
+email: zhao182y@sina.com
+description: "Tech Blog"
+baseurl: "/startbootstrap-clean-blog-jekyll"
+#url: "http://yourdomain.com"
+#twitter_username: SBootstrap
+github_username:  kevin--zhao
+#facebook_username:  IronSummitMedia
+
+# Build settings
+markdown: kramdown
+highlighter: pygments
+permalink: pretty
+paginate: 5
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
