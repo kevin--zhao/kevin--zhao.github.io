@@ -5,7 +5,6 @@ email: zhao182y@sina.com
 description: "Tech Blog"
 baseurl:
 #url: "http://yourdomain.com"
-#twitter_username: SBootstrap
 github_username:  kevin--zhao
 #facebook_username:  IronSummitMedia
 production_url : http://kevin--zhao.github.io
