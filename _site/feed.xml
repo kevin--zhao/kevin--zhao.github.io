@@ -3,10 +3,10 @@
   <channel>
     <title>Kevin&#39;s Blog</title>
     <description>Tech Blog</description>
-    <link>/startbootstrap-clean-blog-jekyll/</link>
-    <atom:link href="/startbootstrap-clean-blog-jekyll/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 07 Jan 2015 17:58:27 +0800</pubDate>
-    <lastBuildDate>Wed, 07 Jan 2015 17:58:27 +0800</lastBuildDate>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 08 Jan 2015 13:23:52 +0800</pubDate>
+    <lastBuildDate>Thu, 08 Jan 2015 13:23:52 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -14,8 +14,8 @@
         <description>
 </description>
         <pubDate>Thu, 08 Jan 2015 01:54:00 +0800</pubDate>
-        <link>/startbootstrap-clean-blog-jekyll/2015/01/08/%E5%A6%82%E4%BD%95%E5%86%99R%E5%8C%85/</link>
-        <guid isPermaLink="true">/startbootstrap-clean-blog-jekyll/2015/01/08/%E5%A6%82%E4%BD%95%E5%86%99R%E5%8C%85/</guid>
+        <link>/2015/01/08/%E5%A6%82%E4%BD%95%E5%86%99R%E5%8C%85/</link>
+        <guid isPermaLink="true">/2015/01/08/%E5%A6%82%E4%BD%95%E5%86%99R%E5%8C%85/</guid>
         
         
       </item>

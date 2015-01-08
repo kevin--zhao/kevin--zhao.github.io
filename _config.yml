@@ -3,10 +3,7 @@ title: Kevin's Blog
 header-img: img/home-bg.jpg
 email: zhao182y@sina.com
 description: "Tech Blog"
-baseurl:
-#url: "http://yourdomain.com"
 github_username:  kevin--zhao
-#facebook_username:  IronSummitMedia
 production_url : http://kevin--zhao.github.io
 # Build settings
 markdown: kramdown
