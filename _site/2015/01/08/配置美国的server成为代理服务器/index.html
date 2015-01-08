@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tech Blog">
 
-    <title>如何快速写R包 - Kevin's Blog</title>
+    <title>如何配置美国的server，使之成为代理服务器 - Kevin's Blog</title>
 
-    <link rel="canonical" href="/2015/01/08/%E5%A6%82%E4%BD%95%E5%86%99R%E5%8C%85/">
+    <link rel="canonical" href="/2015/01/08/%E9%85%8D%E7%BD%AE%E7%BE%8E%E5%9B%BD%E7%9A%84server%E6%88%90%E4%B8%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -76,14 +76,14 @@
 
 
     <!-- Post Header -->
-<header class="intro-header" style="background-image: url('/img/post-bg-01.jpg')">
+<header class="intro-header" style="background-image: url('/img/post-bg-02.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>如何快速写R包</h1>
+                    <h1>如何配置美国的server，使之成为代理服务器</h1>
                     
-                    <h2 class="subheading">R包速成手册</h2>
+                    <h2 class="subheading">美国代理服务器设置</h2>
                     
                     <span class="meta">Posted by zhao kevin on January 8, 2015</span>
                 </div>
@@ -98,17 +98,45 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				
+				<p>如果你拥有一台国外的机器（这个机器的ip属于美国，不会被墙掉），你可以把它设置成代理服务器，通过它来访问google，facebook等网站。</p>
+<h2 class="section-heading"> 安装squid代理服务器</h2>
+<p>Squid是Linux系统下优秀的代理服务器软件。Squid可以配置普通上网代理（正向代理），反向代理，透明代理。</p>
+<p>在linux机器上安装squid，比如你是CentOS，你可以用如下命令</p>
+<p><code>yum install squid</code></p>
+<p>1. 编辑配置文件 </p>
+<p><code>sudo vi /etc/squid/squid.conf</code></p>
+<p>修改：</p>
+<p><code>http_access deny all</code></p>
+<p>成为</p>
+<p><code>http_access allow all</code></p>
+<p>2. 启动服务</p>
+<p><code>service squid start</code></p>
+<p>注意这里需要在squid文件夹里操作这行命令</p>
+<p>在windows上设置代理</p>
+<p>IP为你的机器的ip，端口为3128</p>
+<p>3. 设置缓存</p>
+<p>/var/spool/squid/为squid的默认缓存文件放置目录。
+<code>cache_mem 128 MB</code></p>
+
+<p><code>cache_swap_low 90</code>
+<code>cache_swap_high 95</code>
+<code>cache_dir ufs /tmp/squid 100 16 256</code></p>
+
+<p>创建缓存目录</p>
+<p><code>mkdir /tmp/squid</code></p>
+
+<p><code>chown squid:squid /tmp/squid</code></p>
+
 
 
                 <hr>
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2015/01/08/%E9%85%8D%E7%BD%AE%E7%BE%8E%E5%9B%BD%E7%9A%84server%E6%88%90%E4%B8%BA%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-toggle="tooltip" data-placement="top" title="如何配置美国的server，使之成为代理服务器">&larr; Previous Post</a>
-                    </li>
                     
+                    <li class="next">
+                        <a href="/2015/01/08/%E5%A6%82%E4%BD%95%E5%86%99R%E5%8C%85/" data-toggle="tooltip" data-placement="top" title="如何快速写R包">Next Post &rarr;</a>
+                    </li>
                     
                 </ul>
 
