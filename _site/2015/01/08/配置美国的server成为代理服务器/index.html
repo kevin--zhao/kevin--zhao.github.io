@@ -102,38 +102,50 @@
 <h2 class="section-heading"> 安装squid代理服务器</h2>
 <p>Squid是Linux系统下优秀的代理服务器软件。Squid可以配置普通上网代理（正向代理），反向代理，透明代理。</p>
 <p>在linux机器上安装squid，比如你是CentOS，你可以用如下命令</p>
-<p><code>yum install squid</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">yum</span> <span class="n">install</span> <span class="n">squid</span></code></pre></div>
+
 <p>1. 编辑配置文件 </p>
-<p><code>sudo vi /etc/squid/squid.conf</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">sudo</span> <span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">squid</span><span class="o">/</span><span class="n">squid</span><span class="p">.</span><span class="n">conf</span></code></pre></div>
+
 <p>修改：</p>
-<p><code>http_access deny all</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">http_access</span> <span class="n">deny</span> <span class="n">all</span></code></pre></div>
+
 <p>成为</p>
-<p><code>http_access allow all</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">http_access</span> <span class="n">allow</span> <span class="n">all</span></code></pre></div>
+
 <p>2. 启动服务</p>
-<p><code>service squid start</code></p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">service</span> <span class="n">squid</span> <span class="n">start</span></code></pre></div>
+
 <p>注意这里需要在squid文件夹里操作这行命令</p>
 <p>在windows上设置代理</p>
 <p>IP为你的机器的ip，端口为3128</p>
 <p>3. 设置缓存</p>
-<p>/var/spool/squid/为squid的默认缓存文件放置目录。
-<code>cache_mem 128 MB</code></p>
+<p>/var/spool/squid/为squid的默认缓存文件放置目录。</p>
 
-<p><code>cache_swap_low 90</code></p>
-
-<p><code>cache_swap_high 95</code></p>
-
-<p><code>cache_dir ufs /tmp/squid 100 16 256</code></p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">cache_mem</span> <span class="mi">128</span> <span class="n">MB</span>
+<span class="n">cache_swap_low</span> <span class="mi">90</span>
+<span class="n">cache_swap_high</span> <span class="mi">95</span>
+<span class="n">cache_dir</span> <span class="n">ufs</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">squid</span> <span class="mi">100</span> <span class="mi">16</span> <span class="mi">256</span></code></pre></div>
 
 <p>创建缓存目录</p>
-<p><code>mkdir /tmp/squid</code></p>
 
-<p><code>chown squid:squid /tmp/squid</code></p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">mkdir</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">squid</span>
+<span class="n">chown</span> <span class="nl">squid</span><span class="p">:</span><span class="n">squid</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">squid</span></code></pre></div>
 
 
 
                 <hr>
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2015/01/08/%E5%A6%82%E4%BD%95%E6%9F%A5%E8%AF%A2R%E9%87%8C%E7%9A%84%E5%87%BD%E6%95%B0/" data-toggle="tooltip" data-placement="top" title="如何查询R里的函数">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">
