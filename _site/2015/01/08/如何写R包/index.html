@@ -98,7 +98,123 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-				
+				<p>一直想写个自己的R包，网上看了一些大神的帖子，自己总结了一下心得，写篇博客，记录一下我R包的诞生！</p>
+
+<h2 class="section-heading"> 创建自己的R包，给自己写的算法找个家</h2>
+
+<h3 class="section-heading"> 1. 环境搭建和准备</h3>
+<ol>
+  <li>安装好R和Rstudio</li>
+  <li>打开R，运行install.packages(‘devtools’,dependencies=T)</li>
+  <li>准备好你需要打包的function，选择好你用的舒服的编辑器，推荐sublime text和notepad++</li>
+</ol>
+
+<h3 class="section-heading">2. 导入R包骨架</h3>
+<p>用下面的代码搭建R包的骨架，以前用skeleton等R里面的function，现在看来最方便的还是下面的方式：</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">library</span><span class="p">(</span><span class="s">&#39;devtools&#39;</span><span class="p">)</span> <span class="c"># 开发 R 包黑魔法工具</span>
+<span class="n">library</span><span class="p">(</span><span class="s">&#39;roxygen2&#39;</span><span class="p">)</span> <span class="c"># 这是latex formatting的包</span>
+<span class="n">create</span><span class="p">(</span><span class="s">&#39;~/alert20&#39;</span><span class="p">)</span> <span class="c"># 建立 R 包的目录，alert20 就是你想要的包的名称</span>
+<span class="n">setwd</span><span class="p">(</span><span class="s">&#39;~/alert20&#39;</span><span class="p">)</span> <span class="c"># 把工作目录放到 R 包中的目录，开发 R 包过程中始终推荐这样做。</span>
+<span class="nb">dir</span><span class="p">()</span> <span class="c"># 列出当前工作目录的文件和文件夹</span></code></pre></div>
+
+<p>以上的过程，就是建立一个最基本的 R 包的目录骨架，并且把骨架文件夹作为当前工作空间。</p>
+<p>看一下生成的文件夹有什么东西：一个叫 R 的文件夹，一个叫 man 的空文件夹，一个叫 DESCRIPTION 的文件。</p>
+<p>R的文件夹会存放你的所有的R的包，man的空文件夹用来存放自动生成的markdown的说明性的文件的，DESCRIPTION文件相当于一个说明文档，会记录编写者和R包的一些说明的信息。</p>
+<h3 class="section-heading"> 3. 编写DESCRIPTION文件</h3>
+<p>实际上，我们最简单（但能用）的 R 包，只需要操作 R 文件夹中的文件，和 DESCRIPTION 文件即可！</p>
+<p>简单一点，先看看 DESCRIPTION 文件内容（用代码编辑器或者 在R中使用命令file.edit(‘DESCRIPTION’)）
+初始的文件如下：</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Package</span><span class="p">:</span> <span class="n">alert20</span>
+<span class="n">Title</span><span class="p">:</span>
+<span class="n">Description</span><span class="p">:</span>
+<span class="n">Version</span><span class="p">:</span> <span class="mf">0.1</span>
+<span class="n">Authors</span><span class="nd">@R</span><span class="p">:</span> <span class="c"># getOptions(&#39;devtools.desc.author&#39;)</span>
+<span class="n">Depends</span><span class="p">:</span> <span class="n">R</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mf">3.0</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span> <span class="n">License</span><span class="p">:</span> <span class="c"># getOptions(&#39;devtools.desc.license&#39;)</span>
+<span class="n">LazyData</span><span class="p">:</span> <span class="n">true</span></code></pre></div>
+
+<p>改成如下的格式，你可以根据你自己的信息来填写：</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">Package</span><span class="p">:</span> <span class="n">alert20</span>
+<span class="n">Title</span><span class="p">:</span> <span class="n">test</span> <span class="n">package</span>
+<span class="n">Description</span><span class="p">:</span> <span class="n">no</span> <span class="n">specific</span> <span class="n">description</span>
+<span class="n">Version</span><span class="p">:</span> <span class="mf">0.1</span>
+<span class="n">Author</span><span class="p">:</span> <span class="n">Kevin</span> <span class="n">Zhao</span> <span class="o">&lt;</span><span class="n">zhao182y</span><span class="nd">@gmail.com</span><span class="o">&gt;</span>
+<span class="n">Maintainer</span><span class="p">:</span> <span class="n">Kevin</span> <span class="n">Zhao</span> <span class="o">&lt;</span><span class="n">zhao182y</span><span class="nd">@gmail.com</span><span class="o">&gt;</span>
+<span class="n">Depends</span><span class="p">:</span>
+<span class="n">R</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="mf">2.15</span><span class="o">.</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">License</span><span class="p">:</span> <span class="n">MIT</span>
+<span class="n">LazyData</span><span class="p">:</span> <span class="n">true</span></code></pre></div>
+
+<p>然后可以直接保存，这样你的DESCRIPTION文件就完成了。</p>
+
+<h3 class="section-heading">4. 加入*.R文件</h3>
+<p>接下来我们的关注点就是包文件夹中 R 文件夹中的文件了。</p>
+
+<p>这个文件夹下，应该放着所有的自创的 R 代码。至于怎样放，放到哪个文件中，几乎无所谓，只要（你觉得）有美感，不凌乱，即可。</p>
+
+<p>需要说明的是，在此目录下一个 alert20-package.r 的文件已经被创建了，这个文件应该被保留下作为这个包的描述文件，最好不要放自创函数进去这里。</p>
+
+<p>我们用一个最简单的function来做test，下面是已经写好的布朗运动的function：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">fbm</span> <span class="o">&lt;-</span> <span class="n">function</span><span class="p">(</span><span class="n">hurst</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="p">{</span> <span class="n">delta</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="o">/</span><span class="n">n</span>
+      <span class="n">r</span> <span class="o">&lt;-</span> <span class="n">numeric</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="mi">1</span> <span class="k">for</span><span class="p">(</span><span class="n">k</span> <span class="n">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span>
+      <span class="n">r</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">hurst</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">^</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">hurst</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">hurst</span><span class="p">))</span>
+      <span class="n">r</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="n">seq</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span> <span class="n">lambda</span> <span class="o">&lt;-</span> <span class="n">Re</span><span class="p">((</span><span class="n">fft</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+      <span class="n">W</span> <span class="o">&lt;-</span> <span class="n">fft</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lambda</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rnorm</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">rnorm</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="n">i</span><span class="p">))</span>
+      <span class="n">W</span> <span class="o">&lt;-</span> <span class="n">n</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="n">hurst</span><span class="p">)</span> <span class="o">*</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">Re</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]))</span>
+      <span class="n">X</span> <span class="o">&lt;-</span> <span class="n">ts</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">deltat</span><span class="o">=</span><span class="n">delta</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+      <span class="p">}</span></code></pre></div>
+
+<p>保存。在 R 或 RStudio 中运行</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">load_all</span><span class="p">()</span> <span class="c"># 把包骨架文件夹中的 R 文件夹中的所有 .R 文件读进来 fbm() # 测试自己写的程序 fbm(hurst=0.2, n=1000) # 再测试自己写的程序</span></code></pre></div>
+
+<p>load_all() 函数很神奇地把包骨架文件夹中的 R 文件夹中的所有 .R 文件读进来了；</p>
+<p>每一次你改进你的 *.R 文件，只要运行一次 load_all() 就会把最新的自创函数们拉进来，在 R 环境中就可以测试最新的代码是否正常。</p>
+<h3 class="section-heading">5. 加入文档和注释</h3>
+
+<p>R 包规定了每一个（对外）的函数和变量和数据结构，都要有对应的解释等；在 man 文件夹中会有对应的 *.Rd 文件，里面是由奇奇怪怪的东西（R+LaTeX）写成的。我们可以用比较简洁的方式来写函数注释，然后用一些方法来生成对应的 *.Rd 文件。</p>
+
+<p>具体地说，先修改 bm.R 文件：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#&#39; Generate a time series of fractional Brownian motion. #&#39;</span>
+<span class="cp">#&#39; This function generatea a time series of one dimension fractional Brownian motion. #&#39; adapted from http:</span><span class="c1">//www.mathworks.com.au/matlabcentral/fileexchange/38935-fractional-brownian-motion-generator .</span>
+<span class="cp">#&#39;</span>
+<span class="cp">#&#39; @param hurst the hurst index, with the default value 0.71</span>
+<span class="cp">#&#39; @param n the number of points between 0 and 1 that will be generated, with the default value 100</span>
+<span class="cp">#&#39; @export</span>
+<span class="cp">#&#39; @examples</span>
+<span class="cp">#&#39; fbm()</span>
+<span class="cp">#&#39; plot(fbm())</span>
+<span class="cp">#&#39; d &lt;- fbm(hurst=0.2, n=1000)</span>
+<span class="cp">#&#39; plot(d)</span>
+<span class="n">fbm</span> <span class="o">&lt;-</span> <span class="n">function</span><span class="p">(</span><span class="n">hurst</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="p">{</span> <span class="n">delta</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="o">/</span><span class="n">n</span>
+      <span class="n">r</span> <span class="o">&lt;-</span> <span class="n">numeric</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="mi">1</span> <span class="k">for</span><span class="p">(</span><span class="n">k</span> <span class="n">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span>
+      <span class="n">r</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">hurst</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">^</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">hurst</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">hurst</span><span class="p">))</span>
+      <span class="n">r</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="n">seq</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span> <span class="n">lambda</span> <span class="o">&lt;-</span> <span class="n">Re</span><span class="p">((</span><span class="n">fft</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+      <span class="n">W</span> <span class="o">&lt;-</span> <span class="n">fft</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lambda</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rnorm</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">rnorm</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="n">i</span><span class="p">))</span>
+      <span class="n">W</span> <span class="o">&lt;-</span> <span class="n">n</span><span class="o">^</span><span class="p">(</span><span class="o">-</span><span class="n">hurst</span><span class="p">)</span> <span class="o">*</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">Re</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]))</span>
+      <span class="n">X</span> <span class="o">&lt;-</span> <span class="n">ts</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">deltat</span><span class="o">=</span><span class="n">delta</span><span class="p">)</span> <span class="k">return</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+      <span class="p">}</span></code></pre></div>
+
+<h3 class="section-heading">6. 生成*.Rd文件和打包</h3>
+<p>document()会生成对应的<em>.Rd文件在man文件夹中。
+build() 会帮你自动打包生成</em>.tar.gz文件。
+你可以通过</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s">&#39;~/alert20_0.1.tar.gz&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;source&#39;</span><span class="p">)</span></code></pre></div>
+
+<p>来安装！
+如果你的代码上传到了github上，你可以通过如下命令在R里下载并加载你写的包：</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">install_github</span><span class="p">(</span><span class="s">&quot;alert20&quot;</span><span class="p">,</span><span class="s">&quot;kevin--zhao&quot;</span><span class="p">)</span></code></pre></div>
+
 
 
                 <hr>
